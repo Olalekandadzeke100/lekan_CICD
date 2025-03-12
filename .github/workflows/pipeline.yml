@@ -1,0 +1,38 @@
+name: Deploy React App to S3 + CloudFront
+
+on:
+  push:
+    branches:
+      - main  # Trigger deployment on 'main' branch push
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build React app
+        run: npm run build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AKIAS66UCSWRXYV34PFU }}
+          aws-secret-access-key: ${{ secrets.LOL9IHXb55zWb1MOJxQ8rjAYfMssu9ojTG5xKCMq }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Deploy to S3
+        run: aws s3 sync ./build s3://$softlife-frontend --delete
+
+      - name: Invalidate CloudFront cache
+        run: aws cloudfront create-invalidation --distribution-id ${{ secret.E11VB7KS6N5MQM }} --paths "/*"
+
