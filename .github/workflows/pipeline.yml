@@ -14,8 +14,8 @@ jobs:
         with:
           fetch-depth: 0  # Ensure all files are pulled
 
-      - name: Debug: Show Directory Structure
-        run: ls -la lekan_CICD  # Confirm 'my-app/' exists
+      - name: Show Directory Structure
+        run: ls -la  # Confirm 'my-app/' exists
 
       - name: Navigate to my-app & Show Structure
         run: cd my-app && ls -la  # Confirm 'package.json' exists
