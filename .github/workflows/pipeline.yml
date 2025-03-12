@@ -14,11 +14,8 @@ jobs:
         with:
           fetch-depth: 0  # Ensure all files are pulled
 
-      - name: Show Directory Structure
+      - name: Debug:  Show Directory Structure
         run: ls -la  # Confirm 'my-app/' exists
-
-      - name: Navigate to my-app & Show Structure
-        run: cd my-app && ls -la  # Confirm 'package.json' exists
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
