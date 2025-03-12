@@ -34,5 +34,5 @@ jobs:
         run: aws s3 sync ./build s3://$softlife-frontend --delete
 
       - name: Invalidate CloudFront cache
-        run: aws cloudfront create-invalidation --distribution-id ${{ secret.E11VB7KS6N5MQM }} --paths "/*"
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.E11VB7KS6N5MQM }} --paths "/*"
 
