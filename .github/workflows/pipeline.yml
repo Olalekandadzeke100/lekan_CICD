@@ -14,8 +14,11 @@ jobs:
         with:
           fetch-depth: 0  # Ensure all files are pulled
 
-      - name: Show Directory Structure
-        run: ls -la  # Check if package.json is present
+      - name: Debug: Show Directory Structure
+        run: ls -la  # Confirm 'my-app/' exists
+
+      - name: Navigate to my-app & Show Structure
+        run: cd my-app && ls -la  # Confirm 'package.json' exists
 
       - name: Set up Node.js
         uses: actions/setup-node@v3
@@ -24,11 +27,11 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-        working-directory: ./my-app  # Adjust if needed
+        working-directory: ./my-app  # ✅ Run in 'my-app/'
 
       - name: Build React app
         run: npm run build
-        working-directory: ./my-app  # Adjust if needed
+        working-directory: ./my-app  # ✅ Run in 'my-app/'
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -38,7 +41,7 @@ jobs:
           aws-region: ${{ secrets.us-west-2 }}
 
       - name: Deploy to S3
-        run: aws s3 sync ./my-app/build s3://${{ secrets.softlife-frontend }} --delete
+        run: aws s3 sync ./my-app/build s3://${{ secrets.softlife-frontend }} --delete  # ✅ Adjusted path
 
       - name: Invalidate CloudFront cache
         run: aws cloudfront create-invalidation --distribution-id ${{ secrets.E11VB7KS6N5MQM }} --paths "/*"
