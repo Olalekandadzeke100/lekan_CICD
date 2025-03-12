@@ -14,7 +14,7 @@ jobs:
         with:
           fetch-depth: 0  # Ensure all files are pulled
 
-      - name: Debug Workflow Directory
+      - name: Show Directory Structure
         run: ls -la  # Check if package.json is present
 
       - name: Set up Node.js
